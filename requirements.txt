@@ -1,1 +1,9 @@
 streamlit
+kagglehub
+pandas as pd
+plotly.express as px
+matplotlib.pyplot as plt
+seaborn as sns
+altair as alt
+pycountry
+pycountry_convert as pc
