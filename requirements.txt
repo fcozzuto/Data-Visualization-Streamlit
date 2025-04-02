@@ -1,8 +1,8 @@
 streamlit
 kagglehub
 pandas
-plotly.express
-matplotlib.pyplot
+plotly
+matplotlib
 seaborn
 altair
 pycountry
