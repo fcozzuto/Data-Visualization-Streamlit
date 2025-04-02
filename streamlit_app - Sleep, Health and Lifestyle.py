@@ -72,52 +72,23 @@ clusters = kmeans.fit_predict(scaled_data)
 clustering_df['Cluster'] = clusters
 
 
-col1, col2, col3 = st.columns((3, 3, 2), gap='small')#
-with col1:
-    st.subheader("Correlation Heatmap (Numeric Vars)")
-    numeric_df = df.select_dtypes(include=['float64', 'int64'])
-    if not numeric_df.empty:
-        fig2, ax2 = plt.subplots(figsize=(12, 8))
-        sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm", fmt=".2f", ax=ax2)
-        ax2.set_title("Correlation Matrix")
-        st.pyplot(fig2)
-
-    st.subheader("Age vs. Sleep Duration Regression")
-    fig_reg, ax_reg = plt.subplots(figsize=(10,6))
-    sns.regplot(x="Age", y="Sleep Duration", data=df, ax=ax_reg, scatter_kws={'alpha':0.6})
-    ax_reg.set_title("Age vs. Sleep Duration")
-    st.pyplot(fig_reg)
-
-with col2:
-    st.subheader("Distribution of Sleep Duration")
-    fig, ax = plt.subplots(figsize=(10, 6))
-    #sns.histplot(df['Sleep Duration'], kde=True, color="skyblue", ax=ax)
-    hist = alt.Chart(df).mark_bar().encode(
-        alt.X("Sleep Duration", bin=alt.Bin(maxbins=30), title="Hours of Sleep"),
-        alt.Y('count()', title="Number of People"),
-        tooltip=['count()']
-    )
-    st.altair_chart(hist, use_container_width=True)
-
-    st.subheader("K-Means Clustering on Stress Level and Quality of Sleep")
-    fig3, ax3 = plt.subplots(figsize=(10, 6))
-    sns.scatterplot(x=clustering_df['Stress Level'], y=clustering_df['Quality of Sleep'], hue=clustering_df['Cluster'], palette="viridis")
-    st.pyplot(fig3)
-
-with col3:
-    st.subheader("Dataset Preview")
-    st.write(df.head().T)
-    st.write(df.describe().T)
-
-
-#tab1, tab2, tab3 = st.tabs(["Overview", "Detailed Analysis", "Advanced Analytics"])
+#col1, col2, col3 = st.columns((3, 3, 2), gap='small')#
+#with col1:
+#    st.subheader("Correlation Heatmap (Numeric Vars)")
+#    numeric_df = df.select_dtypes(include=['float64', 'int64'])
+#    if not numeric_df.empty:
+#        fig2, ax2 = plt.subplots(figsize=(12, 8))
+#        sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm", fmt=".2f", ax=ax2)
+#        ax2.set_title("Correlation Matrix")
+#        st.pyplot(fig2)
 #
-#with tab1:
-#    st.subheader("Overview")
-#    st.write(df.head())
-#    st.write(df.describe())
+#    st.subheader("Age vs. Sleep Duration Regression")
+#    fig_reg, ax_reg = plt.subplots(figsize=(10,6))
+#    sns.regplot(x="Age", y="Sleep Duration", data=df, ax=ax_reg, scatter_kws={'alpha':0.6})
+#    ax_reg.set_title("Age vs. Sleep Duration")
+#    st.pyplot(fig_reg)
 #
-#with tab2:
+#with col2:
 #    st.subheader("Distribution of Sleep Duration")
 #    fig, ax = plt.subplots(figsize=(10, 6))
 #    #sns.histplot(df['Sleep Duration'], kde=True, color="skyblue", ax=ax)
@@ -133,17 +104,46 @@ with col3:
 #    sns.scatterplot(x=clustering_df['Stress Level'], y=clustering_df['Quality of Sleep'], hue=clustering_df['Cluster'], palette="viridis")
 #    st.pyplot(fig3)
 #
-#with tab3:
-#    st.subheader("Correlation Heatmap (Numeric Vars)")
-#    numeric_df = df.select_dtypes(include=['float64', 'int64'])
-#    if not numeric_df.empty:
-#        fig2, ax2 = plt.subplots(figsize=(12, 8))
-#        sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm", fmt=".2f", ax=ax2)
-#        ax2.set_title("Correlation Matrix")
-#        st.pyplot(fig2)
-#
-#    st.subheader("Age vs. Sleep Duration Regression")
-#    fig_reg, ax_reg = plt.subplots(figsize=(10,6))
-#    sns.regplot(x="Age", y="Sleep Duration", data=df, ax=ax_reg, scatter_kws={'alpha':0.6})
-#    ax_reg.set_title("Age vs. Sleep Duration")
-#    st.pyplot(fig_reg)#
+#with col3:
+#    st.subheader("Dataset Preview")
+#    st.write(df.head().T)
+#    st.write(df.describe().T)
+
+
+tab1, tab2, tab3 = st.tabs(["Overview", "Detailed Analysis", "Advanced Analytics"])
+
+with tab1:
+    st.subheader("Overview")
+    st.write(df.head())
+    st.write(df.describe())
+
+with tab2:
+    st.subheader("Distribution of Sleep Duration")
+    fig, ax = plt.subplots(figsize=(10, 6))
+    #sns.histplot(df['Sleep Duration'], kde=True, color="skyblue", ax=ax)
+    hist = alt.Chart(df).mark_bar().encode(
+        alt.X("Sleep Duration", bin=alt.Bin(maxbins=30), title="Hours of Sleep"),
+        alt.Y('count()', title="Number of People"),
+        tooltip=['count()']
+    )
+    st.altair_chart(hist, use_container_width=True)
+
+    st.subheader("K-Means Clustering on Stress Level and Quality of Sleep")
+    fig3, ax3 = plt.subplots(figsize=(10, 6))
+    sns.scatterplot(x=clustering_df['Stress Level'], y=clustering_df['Quality of Sleep'], hue=clustering_df['Cluster'], palette="viridis")
+    st.pyplot(fig3)
+
+with tab3:
+    st.subheader("Correlation Heatmap (Numeric Vars)")
+    numeric_df = df.select_dtypes(include=['float64', 'int64'])
+    if not numeric_df.empty:
+        fig2, ax2 = plt.subplots(figsize=(12, 8))
+        sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm", fmt=".2f", ax=ax2)
+        ax2.set_title("Correlation Matrix")
+        st.pyplot(fig2)
+
+    st.subheader("Age vs. Sleep Duration Regression")
+    fig_reg, ax_reg = plt.subplots(figsize=(10,6))
+    sns.regplot(x="Age", y="Sleep Duration", data=df, ax=ax_reg, scatter_kws={'alpha':0.6})
+    ax_reg.set_title("Age vs. Sleep Duration")
+    st.pyplot(fig_reg)#
